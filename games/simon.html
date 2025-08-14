@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Simon Memory — MiniPause</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head><body>
+<div class="page">
+  <p><a href="../index.html">← Back to Game Hub</a></p>
+  <h1>Simon Memory</h1>
+  <div class="pad">
+<div class="simon">
+  <button class="padbtn" id="g0" style="background:#60a5fa"></button>
+  <button class="padbtn" id="g1" style="background:#f97316"></button>
+  <button class="padbtn" id="g2" style="background:#22c55e"></button>
+  <button class="padbtn" id="g3" style="background:#f43f5e"></button>
+</div>
+<div class="controls"><button id="start">Start</button><span id="st"></span></div>
+</div>
+  <p><small class="muted">Tip: Use fullscreen on mobile (rotate device for better play).</small></p>
+</div>
+<script>
+let seq=[], user=[], st=document.getElementById('st'); const pads=[0,1,2,3].map(i=>document.getElementById('g'+i));
+function flash(i){ const p=pads[i]; p.classList.add('active'); setTimeout(()=>p.classList.remove('active'),350); }
+function play(){ let i=0; const t=setInterval(()=>{ flash(seq[i++]); if(i>=seq.length) clearInterval(t); },500); }
+function next(){ seq.push(Math.floor(Math.random()*4)); play(); user=[]; st.textContent='Level '+seq.length; }
+pads.forEach((p,i)=>p.onclick=()=>{ if(!seq.length) return; flash(i); user.push(i); for(let k=0;k<user.length;k++){ if(user[k]!==seq[k]){ st.textContent='Fail! Score '+(seq.length-1); seq=[]; user=[]; return;} } if(user.length===seq.length) setTimeout(next,400); });
+document.getElementById('start').onclick=()=>{ seq=[]; st.textContent=''; next(); };
+</script>
+</body></html>
