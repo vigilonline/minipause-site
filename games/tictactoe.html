@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tic‑Tac‑Toe AI — MiniPause</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head><body>
+<div class="page">
+  <p><a href="../index.html">← Back to Game Hub</a></p>
+  <h1>Tic‑Tac‑Toe AI</h1>
+  <div class="pad"><div id="board" style="display:grid;grid-template-columns:repeat(3,100px);gap:8px"></div><div class="controls"><button id="new">New</button><span id="st"></span></div></div>
+  <p><small class="muted">Tip: Use fullscreen on mobile (rotate device for better play).</small></p>
+</div>
+<script>
+let b=Array(9).fill(''), player='X', ai='O', st=document.getElementById('st'), bd=document.getElementById('board');
+function render(){ bd.innerHTML=''; b.forEach((v,i)=>{ const d=document.createElement('button'); d.className='tile'; d.style.width='100px'; d.style.height='100px'; d.textContent=v; d.onclick=()=>move(i); bd.appendChild(d)}); }
+function winner(s){ const L=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]; return L.some(l=>l.every(i=>s[i]==='X'))?'X':L.some(l=>l.every(i=>s[i]==='O'))?'O':s.every(x=>x)?'D':null; }
+function move(i){ if(b[i]||winner(b))return; b[i]=player; render(); const w=winner(b); if(w){ st.textContent=w==='D'?'Draw':w+' wins'; return; } // AI: pick best of win/block/random
+let m = [0,1,2,3,4,5,6,7,8].filter(j=>!b[j]); // try win
+for (let j of m){ let t=b.slice(); t[j]=ai; if(winner(t)===ai){ b[j]=ai; render(); st.textContent='O wins'; return; } }
+for (let j of m){ let t=b.slice(); t[j]=player; if(winner(t)===player){ b[j]=ai; render(); return; } }
+b[m[Math.floor(Math.random()*m.length)]]=ai; render(); const w2=winner(b); if(w2){ st.textContent=w2==='D'?'Draw':w2+' wins'; } }
+document.getElementById('new').onclick=()=>{b=Array(9).fill(''); st.textContent=''; render();}; render();
+</script>
+<script src="../assets/analytics.js"></script>
+</body></html>

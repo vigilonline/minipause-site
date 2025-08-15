@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sliding Puzzle 3×3 — MiniPause</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head><body>
+<div class="page">
+  <p><a href="../index.html">← Back to Game Hub</a></p>
+  <h1>Sliding Puzzle 3×3</h1>
+  <div class="pad"><div id="p" class="grid3x3"></div><div class="controls"><button id="sh">Shuffle</button><span id="st"></span></div></div>
+  <p><small class="muted">Tip: Use fullscreen on mobile (rotate device for better play).</small></p>
+</div>
+<script>
+const S=3; let tiles=[...Array(S*S).keys()], blank=S*S-1, st=document.getElementById('st');
+function render(){ const root=document.getElementById('p'); root.innerHTML=''; tiles.forEach((n,i)=>{ const d=document.createElement('button'); d.className='tile'+(n===blank?' blank':''); d.textContent = (n===blank?'':(n+1)); d.onclick=()=>click(i); root.appendChild(d); }); }
+function nbs(i){ const x=i%S, y=(i/S|0), a=[]; if(x>0)a.push(i-1); if(x<S-1)a.push(i+1); if(y>0)a.push(i-S); if(y<S-1)a.push(i+S); return a; }
+function click(i){ const bi=tiles.indexOf(blank); if(nbs(bi).includes(i)){ [tiles[i],tiles[bi]]=[tiles[bi],tiles[i]]; render(); if(tiles.every((v,i)=>v===i)) st.textContent='Solved! 🎉'; } }
+function shuffle(){ tiles=[...Array(S*S).keys()]; blank=tiles.length-1; for(let k=0;k<200;k++){ const bi=tiles.indexOf(blank); const a=nbs(bi); const p=a[Math.floor(Math.random()*a.length)]; [tiles[p],tiles[bi]]=[tiles[bi],tiles[p]]; } st.textContent=''; render(); }
+document.getElementById('sh').onclick=shuffle; shuffle();
+</script>
+<script src="../assets/analytics.js"></script>
+</body></html>

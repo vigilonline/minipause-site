@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Snake — MiniPause</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head><body>
+<div class="page">
+  <p><a href="../index.html">← Back to Game Hub</a></p>
+  <h1>Snake</h1>
+  <div class="pad"><canvas id="cv" class="game" width="360" height="360"></canvas><div class="controls"><button id="rs">Restart</button><span id="st"></span></div></div>
+  <p><small class="muted">Tip: Use fullscreen on mobile (rotate device for better play).</small></p>
+</div>
+<script>
+const cv=document.getElementById('cv'), cx=cv.getContext('2d'); const N=18,SZ=cv.width/N;
+let dir=[1,0], snake=[[5,5],[4,5],[3,5]], food=[10,10], st=document.getElementById('st'), timer=null;
+function draw(){ cx.fillStyle='#f8fafc'; cx.fillRect(0,0,cv.width,cv.height);
+  cx.fillStyle='#22c55e'; snake.forEach(([x,y])=>cx.fillRect(x*SZ+1,y*SZ+1,SZ-2,SZ-2));
+  cx.fillStyle='#ef4444'; cx.fillRect(food[0]*SZ+1,food[1]*SZ+1,SZ-2,SZ-2); }
+function step(){ const head=[(snake[0][0]+dir[0]+N)%N,(snake[0][1]+dir[1]+N)%N];
+  if(snake.some((p,i)=>i&&p[0]===head[0]&&p[1]===head[1])){ st.textContent='Game over'; clearInterval(timer); return; }
+  snake.unshift(head);
+  if(head[0]===food[0]&&head[1]===food[1]){ food=[Math.floor(Math.random()*N),Math.floor(Math.random()*N)]; }
+  else snake.pop(); draw(); }
+addEventListener('keydown',e=>{{ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key]&&(dir={{ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key])});
+document.getElementById('rs').onclick=()=>{dir=[1,0]; snake=[[5,5],[4,5],[3,5]]; food=[10,10]; st.textContent=''; if(timer)clearInterval(timer); timer=setInterval(step,130); draw();}
+document.getElementById('rs').click();
+</script>
+<script src="../assets/analytics.js"></script>
+</body></html>
