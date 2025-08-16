@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maze Bot — MiniPause</title>
+<link rel="stylesheet" href="../assets/styles.css">
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="container"><p><a href="../index.html">← Back to Hub</a></p>
+<main id="main"><h1>Maze Bot</h1><div class="pad"><div class="pad"><canvas id="c" width="360" height="360" style="max-width:100%"></canvas></div><button id="r" class="btn">New</button><span id="st"></span></div>
+<p class="note">Analytics & quests are consent-based. See <a href="../legal/privacy.html">Privacy</a>.</p></main></div>
+<script src="../config.js"></script><script src="../assets/progress.js"></script>
+<script>window.mpEvent && mpEvent('game_open',{game:'maze'});</script>
+<script>
+const W=12,H=12,S=30,c=document.getElementById('c'),x=c.getContext('2d');let st=document.getElementById('st'),px=0,py=0,gx=W-1,gy=H-1;
+const m=[[0,0,0,0,0,0,0,0,0,0,0,0],[1,1,0,1,1,1,0,1,1,1,1,0],[0,0,0,0,0,1,0,0,0,0,0,0],[0,1,1,1,0,1,1,1,1,0,1,0],[0,0,0,1,0,0,0,0,1,0,1,0],[1,1,0,1,1,1,1,0,1,0,1,0],[0,0,0,0,0,0,1,0,0,0,1,0],[0,1,1,1,1,0,1,1,1,0,1,0],[0,0,0,0,0,0,0,0,1,0,0,0],[0,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,0,0,0,0,1,0,0,0],[1,1,1,1,1,1,1,0,0,0,0,0]];
+function draw(){x.clearRect(0,0,360,360);for(let y=0;y<H;y++)for(let z=0;z<W;z++){x.fillStyle=m[y][z]?'#94a3b8':'#ffffff';x.fillRect(z*S,y*S,S-1,S-1)}x.fillStyle='#fde047';x.fillRect(gx*S+6,gy*S+6,S-12,S-12);x.fillStyle='#22c55e';x.beginPath();x.arc(px*S+S/2,py*S+S/2,S*0.35,0,7);x.fill()}
+function mv(dx,dy){const nx=px+dx,ny=py+dy;if(nx<0||ny<0||nx>=W||ny>=H||m[ny][nx])return;px=nx;py=ny;draw();if(px===gx&&py===gy){st.textContent='You win!';mpEvent&&mpEvent('maze_win')}}
+addEventListener('keydown',e=>({ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key]&&(e.preventDefault(),mv(...({ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key])))));
+document.getElementById('r').onclick=()=>{px=0;py=0;st.textContent='';draw()};draw();
+</script>
+</body></html>
