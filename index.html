@@ -1,0 +1,74 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MiniPause Arcade — 112+ Kids Games</title>
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffb84c">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="description" content="Ad-free, kid-friendly games with parent controls, quests & badges.">
+</head><body>
+<a href="#main" class="skip-link">Skip to content</a>
+<header class="header"><div class="container row">
+  <div class="logo"><div class="mark"></div> MiniPause</div>
+  <div class="lang">
+    <label for="langsel" class="note">Lang</label>
+    <select id="langsel"><option value="en">EN</option><option value="ro">RO</option></select>
+  </div>
+</div></header>
+
+<div class="container">
+  <h1>MiniPause Arcade</h1>
+  <p class="subtitle">112+ kid-friendly games. No ads. Parent-first controls.</p>
+
+  <div class="layout" id="main">
+    <aside class="sidebar">
+      <div class="group">
+        <h3>Search</h3>
+        <input id="search" placeholder="Search games..." />
+      </div>
+      <div class="group">
+        <h3>Categories</h3>
+        <label><input type="checkbox" id="fCore" checked> Core</label><br>
+        <label><input type="checkbox" id="fMicro" checked> Micro</label>
+      </div>
+      <div class="group">
+        <h3>Tags</h3>
+        <div><span class="chip">Trending</span><span class="chip green">New</span><span class="chip red">Kids</span></div>
+      </div>
+      <div class="group">
+        <h3>Kid Mode</h3>
+        <label><input type="checkbox" id="kidtoggle"> Only kid-friendly</label>
+      </div>
+      <div class="group">
+        <h3>Parent Controls</h3>
+        <div class="controls">
+          <input id="sessMin" type="number" min="0" step="5" style="width:110px" placeholder="Minutes">
+          <button id="sessStart" class="btn">Start</button>
+        </div>
+        <div id="sessionbar" style="margin-top:8px"></div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="searchbar">
+        <span class="pill">All Games</span>
+        <span class="badge kid">Kids Friendly</span>
+      </div>
+      <div class="grid" id="alllist"></div>
+    </main>
+  </div>
+</div>
+
+<footer class="footer"><div class="container row"><p class="note">© 2025 MiniPause — <a href="legal/privacy.html">Privacy</a> • <a href="legal/terms.html">Terms</a> • <a href="legal/disclaimer.html">Disclaimer</a></p></div></footer>
+
+<div class="pad container" id="consent" style="display:none;margin-top:12px">
+  <strong>Analytics cookies?</strong>
+  <p class="note">GA4 only with consent. No ads or cross-site tracking.</p>
+  <div class="controls">
+    <button id="deny" class="ghost">Essentials only</button>
+    <button id="accept" class="btn">Allow analytics</button>
+  </div>
+</div>
+
+<script src="config.js"></script><script src="assets/progress.js"></script><script src="assets/app.js"></script>
+</body></html>
